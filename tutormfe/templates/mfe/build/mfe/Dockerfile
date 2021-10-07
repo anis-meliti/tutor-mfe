@@ -18,6 +18,7 @@ RUN git clone {{ app["repository"] }} --branch {{ app.get("version", MFE_COMMON_
 ARG NPM_REGISTRY=https://registry.npmjs.org/
 RUN npm install --verbose --registry=$NPM_REGISTRY
 ENV PUBLIC_PATH='/{{ app["name"] }}/'
+EXPOSE {{ app['port'] }}
 ######## {{ app["name"] }} (production)
 FROM {{ app["name"] }}-dev AS {{ app["name"] }}
 COPY ./env/production /openedx/env/production
