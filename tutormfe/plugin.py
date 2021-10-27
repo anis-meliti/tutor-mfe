@@ -31,7 +31,7 @@ config = {
         },
         "PROFILE_MFE_APP": {
             "name": "profile",
-            "repository": "https://github.com/edx/frontend-app-profile",
+            "repository": "https://github.com/anis-meliti/frontend-app-profile.git",
             "port": 1995,
         },
     },
