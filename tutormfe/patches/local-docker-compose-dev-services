@@ -7,23 +7,17 @@
         target: {{ app["name"] }}-dev
     ports:
         - "127.0.0.1:{{ app["port"] }}:{{ app["port"] }}"
-    {# Unfortunately we can't rely on "npm run start" because we need to manually disable host checking, which defaults to localhost/0.0.0.0.#}
-    {# command: ["npm", "run", "start"] #}
-    command: [
-        "webpack-dev-server", "--config=./node_modules/@edx/frontend-build/config/webpack.dev.config.js", "--progress",
-        "--disable-host-check", "--output-public-path=/{{ app["name"] }}/",
-        "--history-api-fallback={{ app["name"] }}/index.html"
-    ]
+    volumes:
+        - ../plugins/mfe/apps/mfe/webpack.dev.config.js:/openedx/app/webpack.dev.config.js:ro
     env_file:
         - ../plugins/mfe/build/mfe/env/production
         - ../plugins/mfe/build/mfe/env/development
-    {% if "env" in app %}
     environment:
-    {% if "production" in app["env"] %}{% for key, value in app["env"]["production"].items() %}
+        - "PORT={{ app['port'] }}"
+        {%- for key, value in app.get("env", {}).get("production", {}).items() %}
         - "{{ key }}={{ value }}"
-    {% endfor %}{% endif %}
-    {% if "development" in app["env"] %}{% for key, value in app["env"]["development"].items() %}
+        {% endfor %}
+        {% for key, value in app.get("env", {}).get("development", {}).items() %}
         - "{{ key }}={{ value }}"
-    {% endfor %}{% endif %}
-    {% endif %}
+        {% endfor %}
 {% endfor %}
