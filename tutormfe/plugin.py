@@ -10,7 +10,7 @@ templates = os.path.join(HERE, "templates")
 config = {
     "defaults": {
         "VERSION": __version__,
-        "DOCKER_IMAGE": "{{ DOCKER_REGISTRY }}overhangio/openedx-mfe:{{ MFE_VERSION }}",
+        "DOCKER_IMAGE": "{{ DOCKER_REGISTRY }}ansmeliti/openedx-mfe:{{ MFE_VERSION }}",
         "HOST": "apps.{{ LMS_HOST }}",
         "COMMON_VERSION": "{{ OPENEDX_COMMON_VERSION }}",
         "ACCOUNT_MFE_APP": {
@@ -33,6 +33,11 @@ config = {
             "name": "profile",
             "repository": "https://github.com/anis-meliti/frontend-app-profile.git",
             "port": 1995,
+        },
+        "LEARNING_MFE_APP": {
+            "name": "learning",
+            "repository": "https://github.com/anis-meliti/frontend-app-learning.git",
+            "port": 2000,
         },
     },
 }
